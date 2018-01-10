@@ -29,7 +29,4 @@ pip install ipywidgets
 jupyter nbextension enable --py widgetsnbextension --sys-prefix
 sudo apt-get install python-dev python-pip libcupti-dev
 sudo pip install tensorflow-gpu
-conda install -c anaconda scikit-learn
-conda install -c conda-forge xgboost
-conda install -c glemaitre imbalanced-learn
 sudo reboot

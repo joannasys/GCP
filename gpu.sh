@@ -8,6 +8,10 @@ mkdir downloads
 cd downloads
 wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
 bash Anaconda3-5.0.1-Linux-x86_64.sh -b
+echo 'export PATH=~/anaconda3/bin:$PATH' >> ~/.bashrc
+export PATH=~/anaconda3/bin:$PATH
+source ~/.bashrc
+conda env update
 jupyter notebook --generate-config
 echo "c.NotebookApp.ip = '*'" >> ~/.jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.open_browser = False" >> ~/.jupyter/jupyter_notebook_config.py
@@ -25,8 +29,9 @@ wget http://files.fast.ai/files/cudnn-9.1-linux-x64-v7.tgz
 tar xf cudnn-9.1-linux-x64-v7.tgz
 sudo cp cuda/include/*.* /usr/local/cuda/include/
 sudo cp cuda/lib64/*.* /usr/local/cuda/lib64/
-pip install ipywidgets
+#pip install ipywidgets
 jupyter nbextension enable --py widgetsnbextension --sys-prefix
 sudo apt-get install python-dev python-pip libcupti-dev
-sudo pip install tensorflow-gpu
+conda install -c anaconda tensorflow-gpu 
 sudo reboot
+

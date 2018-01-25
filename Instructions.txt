@@ -1,0 +1,29 @@
+1. Follow instructions here: https://medium.com/@howkhang/ultimate-guide-to-setting-up-a-google-cloud-machine-for-fast-ai-version-2-f374208be43 (Take your time, don’t rush into it!)
+
+2. **Ignore Step 9 if you don’t want to pay ongoing fees. Let me know if you die die want to use a static ip address, I’ll give you instructions to stop the ongoing fees.
+
+3. NOTE: in step 11, replace the bash setup script with this: https://raw.githubusercontent.com/joannasys/GCP/master/gpu.sh
+
+4. To check if your Tensorflow GPU is running smoothly, run the following python code (either in jupyter or python on command line) 
+
+import tensorflow as tf
+
+with tf.device(‘/cpu:0’):
+   a_c = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name=‘a-cpu’)
+   b_c = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name=‘b-cpu’)
+   c_c = tf.matmul(a_c, b_c, name=‘c-cpu’)
+
+with tf.device(‘/gpu:0’):
+   a_g = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[2, 3], name=‘a-gpu’)
+   b_g = tf.constant([1.0, 2.0, 3.0, 4.0, 5.0, 6.0], shape=[3, 2], name=‘b-gpu’)
+   c_g = tf.matmul(a_g, b_g, name=‘c-gpu’)
+
+with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
+   print (sess.run(c_c))
+   print (sess.run(c_g))
+
+print (’DONE!’)
+
+5. REMEMBER REMEMBER TO STOP YOUR INSTANCES so you don’t get charged 24/7. Note: you will still get charged for your Persistent Disk at minimal rate even if you just stop your instance. 
+
+6. To be extra kiasu, go to Billing and Disable Billing Account to your project, but every time you start your instance, you have to enable your Billing Account again.  
